@@ -18,8 +18,16 @@ repositories {
 
 dependencies {
     // Use JUnit test framework.
-    testImplementation(libs.junit)
+    testImplementation("io.cucumber:cucumber-junit:6.10.4")
+    testImplementation("org.junit.vintage:junit-vintage-engine:5.7.2")
+
+    //Postgresql
     implementation("org.postgresql:postgresql:42.2.5")
+
+    //Cucumber
+    testImplementation("io.cucumber:cucumber-java:7.23.0")
+    testImplementation("io.cucumber:cucumber-junit:7.23.0")
+
     // This dependency is used by the application.
     implementation(libs.guava)
 }
@@ -40,4 +48,9 @@ configure<com.diffplug.gradle.spotless.SpotlessExtension> {
   java {
     googleJavaFormat()
   }
+}
+
+tasks.test {
+    useJUnitPlatform()
+    systemProperty("cucumber.junit-platform.naming-strategy", "long")
 }
