@@ -8,9 +8,9 @@ import java.sql.Statement;
 import java.util.ArrayList;
 
 public class Repository {
-    static String jdbcURL = "jdbc:postgresql://localhost:5432/postgres"; // TODO: Replace
-    static String username = "postgres"; // TODO: Replace
-    static String password = "hello"; // TODO: Replace
+    static String jdbcURL = ""; // TODO: Replace
+    static String username = ""; // TODO: Replace
+    static String password = ""; // TODO: Replace
     static Statement statement;
     static ResultSet resultSet;
     static int count;
