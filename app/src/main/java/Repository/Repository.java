@@ -5,39 +5,44 @@ import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 
 public class Repository {
+    static String jdbcURL = "jdbc:postgresql://localhost:5432/postgres"; // TODO: Replace
+    static String username = "postgres"; // TODO: Replace
+    static String password = "hello"; // TODO: Replace
+    static Statement statement;
+    static ResultSet resultSet;
+    static int count;
+    static    ArrayList<String> result = new ArrayList<>();
 
   public static Connection connectToDatabase() throws ClassNotFoundException, SQLException {
 
     Class.forName("org.postgresql.Driver");
-
-    String jdbcURL = ""; // TODO: Replace
-    String username = ""; // TODO: Replace
-    String password = ""; // TODO: Replace
-
     Connection connection = DriverManager.getConnection(jdbcURL, username, password);
     System.out.println("Connected to PostgreSQL database!");
 
     return (connection);
   }
 
-  public static void executeQuery(String query, Connection connection) throws SQLException {
+  public static ArrayList<String> executeQuery(String query, Connection connection)
+      throws SQLException {
 
-    Statement statement = connection.createStatement();
-    ResultSet resultSet = statement.executeQuery(query);
+    statement = connection.createStatement();
+    resultSet = statement.executeQuery(query);
 
-    while (resultSet.next()) {
-      System.out.println(
+    while (resultSet.next()) { 
+      result.add(
           resultSet.getString(1) + " " + resultSet.getString(2) + " " + resultSet.getString(3));
     }
+    return result;
   }
 
-  public static void executeUpdate(String query, Connection connection) throws SQLException {
+  public static int executeUpdate(String query, Connection connection) throws SQLException {
 
-    Statement statement = connection.createStatement();
-    int count = statement.executeUpdate(query);
-    System.out.println("Number of rows affected by this query: " + count);
+    statement = connection.createStatement();
+    count = statement.executeUpdate(query);
+    return count;
   }
 
   public static void closeConnection(Connection connection) throws SQLException {
